@@ -96,17 +96,7 @@ echo -e "${YELLOW}HIT ENTER${RESET}"
 read
 sudo rmdir mymnt
 rm mega.img
-touch a                         # Writing the run-level report into a file a.
-who -r > a
-declare -i b=0                  # Setting a word iterator.
-for word in $(<a); do           # Parsing through all words in file a.
-    if [ $b -eq 1 ]; then       # We know that 2nd word (word number 1) is the
-                                # run-level number.
-        c=$word                 # We record it in variable c.
-    fi
-    b=b+1
-done
-rm a                            # Removing file a.
+c=$(who -r | awk '{print $2}')
 echo ""
 echo -e "${BLUE}By the way, your computer is utilizing the run-level number ${RED}$c${BLUE}.${RESET}"
 echo ""
